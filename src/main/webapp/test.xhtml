@@ -3,6 +3,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html">
 
     <h:head>
@@ -10,9 +11,28 @@
     </h:head>
     <h:body>
 
-        <h1>#{testView.testString}</h1>
+        <h1>PrimeFaces #4756 Reproducer</h1>
 
-        <h1>#{testViewCdi.testString}</h1>
+        <h:form id="form1">
+            <p:messages id="messages">
+                <p:autoUpdate/>
+            </p:messages>
+
+            <p:pickList id="pick1" value="#{testViewCdi.dualListModel}"
+                        var="item" itemLabel="#{item}" itemValue="#{item}">
+                <p:ajax event="transfer"/>
+            </p:pickList>
+
+            <p:pickList id="pick2" value="#{testViewCdi.dualListModel2}"
+                        var="item" itemLabel="#{item}" itemValue="#{item}">
+                <p:ajax event="transfer"/>
+            </p:pickList>
+
+            <o:validateAll id="validPicks" components="pick1 pick2"
+                           message="all values required!" />
+
+            <h:commandButton id="done" value="Done" action="#{testViewCdi.action1}"/>
+        </h:form>
 
     </h:body>
 </html>
