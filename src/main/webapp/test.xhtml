@@ -6,37 +6,36 @@
       xmlns:o="http://omnifaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html">
 
+    <f:metadata>
+      <f:viewParam name="tab" value="#{testViewCdi.activeTab}" />
+    </f:metadata>
+
     <h:head>
         <title>PrimeFaces Test</title>
     </h:head>
+
     <h:body>
 
-        <h1>PrimeFaces #4756 Reproducer</h1>
+      <h1>PrimeFaces #??? (Tab-View) Reproducer</h1>
 
-        <h:form id="form1">
-            <p:messages id="messages">
-                <p:autoUpdate/>
-            </p:messages>
+      <h:form id="theForm">
+        <p:tabMenu id="menu" activeIndex="#{testViewCdi.activeTab}">
+          <p:menuitem id="tab0" update="menu content" value="Tab 0">
+            <f:param name="tab" value="0"/>
+          </p:menuitem>
+          <p:menuitem id="tab1" update="menu content" value="Tab 1">
+            <f:param name="tab" value="1"/>
+          </p:menuitem>
+        </p:tabMenu>
 
-            <p:pickList id="pick1" value="#{testViewCdi.dualListModel}"
-                        var="item" itemLabel="#{item}" itemValue="#{item}">
-                <p:ajax event="transfer"/>
-            </p:pickList>
+        <h:panelGroup id="content">
+          <p>Active Tab: #{testViewCdi.activeTab}<br/></p>
 
-            <p:pickList id="pick2" value="#{testViewCdi.dualListModel2}"
-                        var="item" itemLabel="#{item}" itemValue="#{item}">
-                <p:ajax event="transfer"/>
-            </p:pickList>
-
-            <o:validateAll id="validPicks" components="pick1 pick2"
-                           message="all values required!" />
-
-            <h:commandButton id="done" value="Done" action="#{testViewCdi.action1}"/>
-        </h:form>
-
-      <h:form id="theOtherForm">
-        <h:commandButton id="otherFormAction" value="Action in other form"
-                         action="#{testViewCdi.action2}"/>
+          <h:inputText id="someInput" value="#{testViewCdi.someInput}" required="true">
+            <p:ajax update="menu content"/>
+          </h:inputText>
+          <p:message id="m_someInput" for="someInput"/>
+        </h:panelGroup>
       </h:form>
 
     </h:body>
