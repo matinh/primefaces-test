@@ -14,10 +14,9 @@
 
         <h:form id="theForm">
             <p:dataTable id="tab" widgetVar="tab"
-                         binding="#{table}"
-                         multiViewState="true"
                          value="#{testViewCdi.tableData}"
-                         var="_data">
+                         var="_data"
+                         multiViewState="true">
 
                 <p:column id="static" headerText="Static Col ID"
                           toggleable="false"
@@ -34,17 +33,16 @@
                     <f:facet name="header">
                         <h:outputText value="#{_col.header}" />
                     </f:facet>
-                    <h:outputText rendered="#{_col.property != null}" value="#{_data[_col.property]}" />
+                    <h:outputText value="#{_data[_col.property]}" />
                 </p:columns>
             </p:dataTable>
-
 
             <p:selectManyMenu id="cols" value="#{testViewCdi.columns}"
                               var="_item"
                               showCheckbox="true" converter="omnifaces.SelectItemsIndexConverter">
                 <f:selectItems value="#{testViewCdi.allColumns}" var="_c" itemLabel="#{_c.header}"/>
                 <p:column>#{_item.header}</p:column>
-                <p:ajax update="tab"/>
+                <p:ajax update="tab" oncomplete="PF('tab').clearFilters()"/>
             </p:selectManyMenu>
 
         </h:form>
