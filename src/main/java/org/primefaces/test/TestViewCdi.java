@@ -1,14 +1,19 @@
 package org.primefaces.test;
 
+import org.primefaces.component.datatable.DataTable;
+
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@RequestScoped
-public class TestViewCdi {
+@ViewScoped
+public class TestViewCdi
+    implements Serializable
+{
 
     private List<Person> tableData;
     private List<ColumnModel> allColumns;
