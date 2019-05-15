@@ -10,9 +10,44 @@
     </h:head>
     <h:body>
 
-        <h1>#{testView.testString}</h1>
+        <h1>PrimeFaces Dynamic Datatable Columns Test</h1>
 
-        <h1>#{testViewCdi.testString}</h1>
+        <h:form id="theForm">
+            <p:dataTable id="tab" widgetVar="tab"
+                         binding="#{table}"
+                         multiViewState="true"
+                         value="#{testViewCdi.tableData}"
+                         var="_data">
+
+                <p:column id="static" headerText="Static Col ID"
+                          toggleable="false"
+                          sortBy="#{_data.id}" filterBy="#{_data.id}">
+                    #{_data.id}
+                </p:column>
+
+                <p:columns value="#{testViewCdi.columns}" var="_col"
+                           sortable="#{_col.sort != null}"
+                           sortBy="#{_data[_col.sort]}"
+                           filterable="#{_col.filter != null}"
+                           filterBy="#{_data[_col.filter]}"
+                           filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{_col.header}" />
+                    </f:facet>
+                    <h:outputText rendered="#{_col.property != null}" value="#{_data[_col.property]}" />
+                </p:columns>
+            </p:dataTable>
+
+
+            <p:selectManyMenu id="cols" value="#{testViewCdi.columns}"
+                              var="_item"
+                              showCheckbox="true" converter="omnifaces.SelectItemsIndexConverter">
+                <f:selectItems value="#{testViewCdi.allColumns}" var="_c" itemLabel="#{_c.header}"/>
+                <p:column>#{_item.header}</p:column>
+                <p:ajax update="tab"/>
+            </p:selectManyMenu>
+
+        </h:form>
 
     </h:body>
 </html>
