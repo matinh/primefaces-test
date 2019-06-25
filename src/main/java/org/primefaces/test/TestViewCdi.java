@@ -13,6 +13,7 @@ import java.util.List;
 public class TestViewCdi implements Serializable
 {
     private List<String> entries ;
+    private int first = 0;
     private int columns = 1;
 
     @PostConstruct  
@@ -34,5 +35,15 @@ public class TestViewCdi implements Serializable
     public void setColumns(int columns)
     {
         this.columns = columns;
+    }
+
+    public int getFirst()
+    {
+        return first;
+    }
+
+    public void setFirst(int first)
+    {
+        this.first = first;
     }
 }
