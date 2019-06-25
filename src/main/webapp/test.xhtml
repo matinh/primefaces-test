@@ -3,7 +3,6 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:o="http://omnifaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html">
 
     <h:head>
@@ -11,32 +10,9 @@
     </h:head>
     <h:body>
 
-      <h1>PrimeFaces DataGrid Reproducer (#4931)</h1>
+        <h1>#{testView.testString}</h1>
 
-      <h:form id="myForm">
-        <p:dataGrid id="grid"
-                    columns="1"
-                    value="#{testViewCdi.entries}"
-                    var="_it"
-                    paginator="true"
-                    paginatorAlwaysVisible="true"
-                    first="#{testViewCdi.first}"
-                    rows="#{testViewCdi.columns}">
-          <h:outputText value="value: #{_it}"/>
-        </p:dataGrid>
-
-        <h:panelGrid columns="2">
-          <h:outputLabel for="first" value="first="/>
-          <p:spinner id="first" value="#{testViewCdi.first}">
-            <p:ajax update="grid"/>
-          </p:spinner>
-
-          <h:outputLabel for="entries" value="columns="/>
-          <p:spinner id="entries" value="#{testViewCdi.columns}">
-            <p:ajax update="grid"/>
-          </p:spinner>
-        </h:panelGrid>
-      </h:form>
+        <h1>#{testViewCdi.testString}</h1>
 
     </h:body>
 </html>
