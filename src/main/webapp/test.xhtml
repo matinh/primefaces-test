@@ -20,13 +20,22 @@
                     var="_it"
                     paginator="true"
                     paginatorAlwaysVisible="true"
+                    first="#{testViewCdi.first}"
                     rows="#{testViewCdi.columns}">
           <h:outputText value="value: #{_it}"/>
         </p:dataGrid>
 
-        <p:spinner id="entries" value="#{testViewCdi.columns}">
-          <p:ajax update="grid"/>
-        </p:spinner>
+        <h:panelGrid columns="2">
+          <h:outputLabel for="first" value="first="/>
+          <p:spinner id="first" value="#{testViewCdi.first}">
+            <p:ajax update="grid"/>
+          </p:spinner>
+
+          <h:outputLabel for="entries" value="columns="/>
+          <p:spinner id="entries" value="#{testViewCdi.columns}">
+            <p:ajax update="grid"/>
+          </p:spinner>
+        </h:panelGrid>
       </h:form>
 
     </h:body>
