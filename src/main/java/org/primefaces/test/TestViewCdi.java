@@ -1,25 +1,42 @@
 package org.primefaces.test;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 @Named
-@RequestScoped
-public class TestViewCdi {
+@ViewScoped
+public class TestViewCdi implements Serializable {
 
-    private String testString;
+    private Integer rowsPerPage = 5;
+    private List<TableData> tableData;
 
     @PostConstruct  
     public void init() {
-        testString = "Welcome to PrimeFaces (from CDI!) !!!";
+        System.out.println("TestViewCdi.init() called.");
+        tableData = new ArrayList<>();
+        tableData.add(new TableData(1L, "One"));
+        tableData.add(new TableData(2L, "Two"));
+        tableData.add(new TableData(3L, "Three"));
+        tableData.add(new TableData(4L, "Four"));
+        tableData.add(new TableData(5L, "Five"));
     }
 
-    public String getTestString() {
-        return testString;
+    public List<TableData> getTableData()
+    {
+        return tableData;
     }
 
-    public void setTestString(String testString) {
-        this.testString = testString;
+    public Integer getRowsPerPage()
+    {
+        return rowsPerPage;
+    }
+
+    public void setRowsPerPage(Integer rowsPerPage)
+    {
+        this.rowsPerPage = rowsPerPage;
     }
 }
