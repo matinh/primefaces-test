@@ -1,49 +1,42 @@
 package org.primefaces.test;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 
 @Named
 @ViewScoped
-public class TestViewCdi implements Serializable
-{
-    private List<String> entries ;
-    private int first = 0;
-    private int columns = 1;
+public class TestViewCdi implements Serializable {
+
+    private Integer rowsPerPage = 5;
+    private List<TableData> tableData;
 
     @PostConstruct  
     public void init() {
-        entries = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
-        System.out.println("TestViewCdi init() done.");
+        System.out.println("TestViewCdi.init() called.");
+        tableData = new ArrayList<>();
+        tableData.add(new TableData(1L, "One"));
+        tableData.add(new TableData(2L, "Two"));
+        tableData.add(new TableData(3L, "Three"));
+        tableData.add(new TableData(4L, "Four"));
+        tableData.add(new TableData(5L, "Five"));
     }
 
-    public List<String> getEntries()
+    public List<TableData> getTableData()
     {
-        return entries;
+        return tableData;
     }
 
-    public int getColumns()
+    public Integer getRowsPerPage()
     {
-        return columns;
+        return rowsPerPage;
     }
 
-    public void setColumns(int columns)
+    public void setRowsPerPage(Integer rowsPerPage)
     {
-        this.columns = columns;
-    }
-
-    public int getFirst()
-    {
-        return first;
-    }
-
-    public void setFirst(int first)
-    {
-        this.first = first;
+        this.rowsPerPage = rowsPerPage;
     }
 }
